@@ -6,7 +6,12 @@ const app = express();
 app.use(bodyParser.json());
 
 // in memory data for this demo
-const posts = {};
+const posts = {
+  "0664b692": {
+    "id": "0664b692",
+    "title": "seed data post"
+  }
+};
 
 app.get('/posts', (req, res) => {
   res.send(posts);
