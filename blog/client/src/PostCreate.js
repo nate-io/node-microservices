@@ -12,12 +12,12 @@ export default function PostCreate () {
     setTitle(value)
   }
 
-  const onSubmit = async () => {
-    const response = await axios.post(POSTS_ENDPOINT, {title})
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-    console.log(response);
+    await axios.post(POSTS_ENDPOINT, { title })
 
-    setTitle("");
+    setTitle('');
   }
 
   return <div>
