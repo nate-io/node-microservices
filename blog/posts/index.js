@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { randomBytes } = require('crypto');
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use(cors());
+app.options('*', cors());
 
 // in memory data for this demo
 const posts = {
@@ -12,6 +16,13 @@ const posts = {
     "title": "seed data post"
   }
 };
+
+// logger 
+app.use(function(req, res, next) {
+  console.log(`${req.method} ${req.url}`);
+
+  next();
+});
 
 app.get('/posts', (req, res) => {
   res.send(posts);
