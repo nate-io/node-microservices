@@ -1,14 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
-const POSTS_ENDPOINT = 'http://localhost:4000/posts/';
+import { getPostsUrl } from './config';
 
 export default function PostList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const { data } = await axios.get(POSTS_ENDPOINT);
+      const { data } = await axios.get(getPostsUrl());
 
       setPosts(data);
     };

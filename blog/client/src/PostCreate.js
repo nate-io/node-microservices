@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-
-const POSTS_ENDPOINT = 'http://localhost:4000/posts/';
+import { getPostsUrl } from './config';
 
 export default function PostCreate() {
   const [title, setTitle] = useState('');
@@ -15,7 +14,7 @@ export default function PostCreate() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post(POSTS_ENDPOINT, { title });
+    await axios.post(getPostsUrl(), { title });
 
     setTitle('');
   };
