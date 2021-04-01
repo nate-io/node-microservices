@@ -21,7 +21,7 @@ export default function PostCreate() {
 
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="title" style={{ width: '100%' }}>
             Title
@@ -35,11 +35,7 @@ export default function PostCreate() {
             />
           </label>
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={onSubmit}
-          type="button"
-        >
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
       </form>
