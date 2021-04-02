@@ -1,21 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { getCommentsUrl } from './config';
 
-export default function CommentCreate({ id }) {
+export default ({ postId }) => {
   const [content, setContent] = useState('');
 
-  const onChange = (e) => {
-    const { value } = e.target;
+  const onSubmit = async event => {
+    event.preventDefault();
 
-    setContent(value);
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await axios.post(getCommentsUrl(id), { content });
+    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+      content
+    });
 
     setContent('');
   };
@@ -24,26 +18,15 @@ export default function CommentCreate({ id }) {
     <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="content" style={{ width: '100%' }}>
-            Comment
-            <input
-              className="form-control"
-              id="content"
-              name="content"
-              onChange={onChange}
-              placeholder="Add a comment to this post"
-              value={content}
-            />
-          </label>
+          <label>New Comment</label>
+          <input
+            value={content}
+            onChange={e => setContent(e.target.value)}
+            className="form-control"
+          />
         </div>
-        <button className="btn btn-primary" type="submit">
-          Submit
-        </button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   );
-}
-
-CommentCreate.propTypes = {
-  id: PropTypes.string.isRequired,
 };

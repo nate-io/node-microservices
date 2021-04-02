@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getCommentsUrl } from './config';
 
-export default function CommentList({ id }) {
+export default ({ postId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const fetchComments = async () => {
-      const { data } = await axios.get(getCommentsUrl(id));
-
-      setComments(data);
+    const fetchData = async () => {
+      const res = await axios.get(
+        `http://localhost:4001/posts/${postId}/comments`
+      );
+  
+      setComments(res.data);
     };
 
-    fetchComments();
-  }, [setComments]);
+    fetchData();
+  }, [postId]);
 
-  return (
-    <ul>
-      {comments.map((comment) => <li key={comment.id}>{comment.content}</li>)}
-    </ul>
-  );
-}
+  const renderedComments = comments.map(comment => {
+    return <li key={comment.id}>{comment.content}</li>;
+  });
 
-CommentList.propTypes = {
-  id: PropTypes.string.isRequired,
+  return <ul>{renderedComments}</ul>;
 };

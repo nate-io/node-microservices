@@ -1,20 +1,15 @@
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import { getPostsUrl } from './config';
 
-export default function PostCreate() {
+export default () => {
   const [title, setTitle] = useState('');
 
-  const onChange = (e) => {
-    const { value } = e.target;
+  const onSubmit = async event => {
+    event.preventDefault();
 
-    setTitle(value);
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await axios.post(getPostsUrl(), { title });
+    await axios.post('http://localhost:4000/posts', {
+      title
+    });
 
     setTitle('');
   };
@@ -23,22 +18,15 @@ export default function PostCreate() {
     <div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="title" style={{ width: '100%' }}>
-            Title
-            <input
-              className="form-control"
-              id="title"
-              name="title"
-              onChange={onChange}
-              placeholder="Add a blog title"
-              value={title}
-            />
-          </label>
+          <label>Title</label>
+          <input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="form-control"
+          />
         </div>
-        <button className="btn btn-primary" type="submit">
-          Submit
-        </button>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   );
-}
+};
