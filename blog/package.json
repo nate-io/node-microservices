@@ -6,8 +6,9 @@
   "scripts": {
     "client": "npm run start --prefix client",
     "comments": "npm run start --prefix comments",
+    "event-bus": "npm start --prefix event-bus",
     "posts": "npm run start --prefix posts",
-    "start": "concurrently \"npm run client\" \"npm run comments\" \"npm run posts\" --names \"client  ,comments,posts   \", -c \"cyan,magenta,yellow\""
+    "start": "concurrently \"npm run client\" \"npm run comments\" \"npm run event-bus\" \"npm run posts\" --names \"client   ,comments ,event-bus,posts    \", -c \"cyan,magenta,blue,yellow\""
   },
   "keywords": [],
   "author": "",
