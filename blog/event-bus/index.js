@@ -25,7 +25,7 @@ app.post('/events', (req, res) => {
   ];
 
   listeners.forEach(listener => {
-    axios.post(`${listener}/posts`, event);
+    axios.post(listener, event);
   })
 
   res.status(200).send({ status: 'OK' });

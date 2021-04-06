@@ -1,10 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const { randomBytes } = require('crypto');
+const axios = require('axios');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(cors());
 app.options('*', cors());
@@ -25,7 +25,7 @@ app.get('/posts/:id/comments', (req, res) => {
   res.send(commentsByPostId[id] || []);
 });
 
-app.post('/posts/:id/comments', (req, res) => {
+app.post('/posts/:id/comments', async (req, res) => {
   const { id } = req.params;
   const commentId = randomBytes(4).toString('hex');
   const { content } = req.body;
@@ -35,8 +35,23 @@ app.post('/posts/:id/comments', (req, res) => {
   comments.push({ id: commentId, content });
   commentsByPostId[id] = comments;
 
+  await axios.post('http://localhost:4005/events', {
+    type: 'CommentCreated',
+    data: { 
+      id: commentId,
+      content,
+      postId: id
+    }
+  });
+
   res.status(201).send(commentsByPostId[id]);
 });
+
+app.post('/events', (req, res) => {
+  console.log('Received Event:', req.body.type);
+
+  res.send({});
+})
 
 app.listen(4001, () => {
   console.log('Listening on 4001');
