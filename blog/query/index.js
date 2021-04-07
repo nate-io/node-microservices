@@ -22,11 +22,11 @@ const posts = {};
 */
 
 // logger 
-app.use(function(req, res, next) {
-  console.log(`${req.method} ${req.url}`);
+// app.use(function(req, res, next) {
+//   console.log(`${req.method} ${req.url}`);
 
-  next();
-});
+//   next();
+// });
 
 // send all posts
 app.get('/posts', (req, res) => { 

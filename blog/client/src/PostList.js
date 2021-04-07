@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useInterval from './hooks/useInterval';
 import CommentCreate from './CommentCreate';
 import CommentList from './CommentList';
 
@@ -12,9 +13,9 @@ export default () => {
     setPosts(res.data);
   };
 
-  useEffect(() => {
+  useInterval(() => {
     fetchPosts();
-  }, []);
+  }, 1000);
 
   const renderedPosts = Object.values(posts).map(post => {
     return (
