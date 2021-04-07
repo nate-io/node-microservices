@@ -1,2 +1,1 @@
-# node-microservices
-Node Event Sourced Microservices On Kubernetes, React
+# Node Event-Sourced Microservices On Kubernetes, React Front End
