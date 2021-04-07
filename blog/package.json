@@ -7,9 +7,10 @@
     "client": "npm start --prefix client",
     "comments": "npm start --prefix comments",
     "event-bus": "npm start --prefix event-bus",
+    "moderation": "npm start --prefix moderation",
     "posts": "npm start --prefix posts",
     "query": "npm start --prefix query",
-    "start": "concurrently \"npm run client\" \"npm run comments\" \"npm run posts\" \"npm run query\" --names \"client   ,comments ,posts    ,query    \", -c \"cyan,magenta,yellow,red\""
+    "start": "concurrently \"npm run client\" \"npm run comments\" \"npm run posts\" \"npm run query\" \"npm run moderation\" --names \"client    ,comments  ,posts     ,query     ,moderation\", -c \"cyan,magenta,yellow,red,green\""
   },
   "keywords": [],
   "author": "",

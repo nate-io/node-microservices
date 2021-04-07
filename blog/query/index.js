@@ -10,30 +10,11 @@ app.options('*', cors());
 // in memory data for this demo
 const posts = {};
 
-/* EVENT data structure
-{
-  type: 'PostCreated' || 'CommentCreated',
-  data: {
-    id: 'string',
-    content: 'string',
-    postId: 'string',
-  } 
-}
-*/
-
-// logger 
-// app.use(function(req, res, next) {
-//   console.log(`${req.method} ${req.url}`);
-
-//   next();
-// });
-
 // send all posts
 app.get('/posts', (req, res) => { 
   res.send(posts);
 });
 
-// store new event which occurred
 app.post('/events', (req, res) => {
   const { type, data } = req.body;
 
@@ -44,14 +25,28 @@ app.post('/events', (req, res) => {
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId } = data;
-    
+    const { id, content, postId, status } = data;
+
     const post = posts[postId];
-    post.comments.push({ id, content });
+    post.comments.push({ id, content, status });
   }
 
+  if (type === 'CommentUpdated') {
+    const { id, content, postId, status } = data;
+
+    const post = posts[postId];
+    const comment = post.comments.find(comment => {
+      return comment.id === id;
+    });
+
+    comment.status = status;
+    comment.content = content;
+  }
+
+  console.log(posts);
+
   res.send({});
-})
+});
 
 app.listen(4002, () => {
   console.log('Listening on 4002');
