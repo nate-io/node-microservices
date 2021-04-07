@@ -15,9 +15,18 @@ app.use(function(req, res, next) {
   next();
 });
 
+const events = [];
+
+app.get('/events', (req, res) => {
+  res.send(events);
+});
+
 // event emitter
 app.post('/events', (req, res) => {
   const event = req.body;
+
+  events.push(event);
+
   const listeners = [
     'http://localhost:4000/events',
     'http://localhost:4001/events',

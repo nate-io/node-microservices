@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 app.use(express.json());
@@ -10,14 +11,12 @@ app.options('*', cors());
 // in memory data for this demo
 const posts = {};
 
-// send all posts
-app.get('/posts', (req, res) => { 
-  res.send(posts);
-});
-
-app.post('/events', (req, res) => {
-  const { type, data } = req.body;
-
+/**
+ * Handle system event by type
+ * @param {string} type 
+ * @param {object} data 
+ */
+const handleEvent = (type, data) => {
   if (type === 'PostCreated') {
     const { id, title } = data;
 
@@ -42,12 +41,30 @@ app.post('/events', (req, res) => {
     comment.status = status;
     comment.content = content;
   }
+}
 
-  console.log(posts);
+// send all posts
+app.get('/posts', (req, res) => { 
+  res.send(posts);
+});
+
+app.post('/events', (req, res) => {
+  const { type, data } = req.body;
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
-app.listen(4002, () => {
+// start the app and fetch historical events for processing
+app.listen(4002, async () => {
   console.log('Listening on 4002');
+
+  const res = await axios.get('http://localhost:4005/events');
+
+  for (let event of res.data) {
+    console.log(`Processing event: ${event.type}`);
+
+    handleEvent(event.type, event.data);
+  }
 });
