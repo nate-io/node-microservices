@@ -9,9 +9,13 @@ The app is a mini-blog app which allows the user to create blog <em>posts</em> w
 
 ```
 .               // run `npm start` at root to start all three children
-+-- client      // react front end served at localhost 3000 
-+-- comments    // backend comments service served at localhost 4001
-+-- posts       // backend posts service served at localhost 4000
++-- client      // react front end served on port 3000 
++-- comments    // comments service served on port 4001
++-- event-bus   // event bus served on port 4005
++-- infra       // kubernetes config
++-- moderation  // moderation service served on port 4003
++-- posts       // posts service served on port 4000
++-- query       // query service served on port 4002
 ```
 
 Since the posts & post comments are separate services for every post we must execute an additional call to fetch all comments for the post. Over time this leads
