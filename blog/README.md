@@ -37,7 +37,7 @@ When talking about sync communication, the app is still microservices, not a mon
     * Can easily introduce webs of requests
 
 * ### Async Communications
-When talking about async communication the system will still contain the existing comments/posts services but will also include a separate Query service and an even bus. The data flow in this architecture is the posts/comments work as before but when conducting data ops they emit events to an event bus which the query service subscribes to and updates it's own data store. TO repeat, each service has it's own data store.
+When talking about async communication the system will still contain the existing comments/posts services but will also include a separate Query service and an even bus. The data flow in this architecture is the posts/comments work as before but when conducting data ops they emit events to an event bus which the query service subscribes to and updates it's own data store. To repeat, each service has it's own data store.
 
   * #### Pros
     * Query service has zero direct dependencies
