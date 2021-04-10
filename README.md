@@ -14,3 +14,11 @@ An examination & implementation of microservices in Node 🔥🔥🔥
 * Kubernetes
 * MongoDB
 * Redis
+
+## Repo Structure
+
+```
+.
++-- blog        // simple blog with comments to study microservice pros/cons
++-- shop        // StubHub clone
+``` 
