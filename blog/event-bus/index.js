@@ -28,10 +28,10 @@ app.post('/events', (req, res) => {
   events.push(event);
 
   const listeners = [
-    'http://localhost:4000/events',
-    'http://localhost:4001/events',
-    'http://localhost:4002/events',
-    'http://localhost:4003/events',
+    'http://posts-clusterip-srv:4000/events',
+    // 'http://localhost:4001/events',
+    // 'http://localhost:4002/events',
+    // 'http://localhost:4003/events',
   ];
 
   listeners.forEach(listener => {
