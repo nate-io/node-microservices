@@ -12,8 +12,10 @@ An examination & implementation of microservices in Node 🔥🔥🔥
 * TypeScript
 * Docker
 * Kubernetes
+* Skaffold
 * MongoDB
 * Redis
+* Google Cloud Platform
 
 ## Repo Structure
 
