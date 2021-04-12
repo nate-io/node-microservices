@@ -21,6 +21,23 @@ The app is a mini-blog app which allows the user to create blog <em>posts</em> w
 Since the posts & post comments are separate services for every post we must execute an additional call to fetch all comments for the post. Over time this leads
 to a very chatty service which will get bogged down. 
 
+## Running the System
+1. Use Skaffold `skaffold dev` 
+   1. This method allows a way to provide a hot reload style feature by running our client and all of our services with one command, `skaffold dev`. Note this is only possible because each of the services uses a tool to allow hot reload - `client` uses Creat React App hot reloading and the backend pieces use `nodemon`.
+2. ~~Manually Run Kubernetes Deployments & Services~~
+   1. This method employed K8s deployment & service objects to run the pod however there was no 'hot reload' style development wherein changes were made and reflected in the system. Rather a multi-step process using Docker Hub was followed:
+      1. Make changes to code
+      2. Apply changes to environment
+         1. if `deployment` file:
+            1. build new image from work dir `docker build -t <dh-username>/<depl-name> .`.
+            2. push image to Docker Hub `docker push <dh-username>/<depl-name>`
+            3. rollout to system `kubectl rollout restart deployment <depl-name>`
+         2. if K8s code `services`, `ingress`
+            1. `kubectl apply -f <filename>`
+3. ~~Run System With Concurrently~~
+   1. Original method to launch all services & client with root level `npm start` command which uses the `concurrently` package to simultaneously executing each sub-directory's `npm start`. No longer works because the internal references to the other services used *localhost:port* in the URLs which were removed when implementing Kubernetes Cluster IP services.
+   
+   
 ## Sync/Async Pros & Cons
 
 Since the requirements would be easily handled by synchronous communication, what are some pros/cons of sync/async communication style? 
@@ -45,7 +62,6 @@ When talking about async communication the system will still contain the existin
   * #### Cons
     * Data duplication
     * Harder to understand, especially as features are added
-
 
 ## This Repo Is Not Religious
 It is 100% understood here this is a contrived example which would easily be handled by a monolith. By keeping the app simple it is easier to keep a mental model of the app in order to study pros & cons of a service/event based system.
