@@ -56,7 +56,7 @@ When talking about sync communication, the app is still microservices, not a mon
     * Can easily introduce webs of requests
 
 * ### Async Communications
-When talking about async communication the system will still contain the existing comments/posts services but will also include a separate Query service and an even bus. The data flow in this architecture is the posts/comments work as before but when conducting data ops they emit events to an event bus which the query service subscribes to and updates it's own data store. To repeat, each service has it's own data store.
+When talking about async communication the system will still contain the existing comments/posts services but will also include a separate Query service and an event bus. The data flow in this architecture is the posts/comments work as before but when conducting data ops they emit events to an event bus which the query service subscribes to and updates it's own data store. To repeat, each service has it's own data store.
 
   * #### Pros
     * Query service has zero direct dependencies
@@ -67,7 +67,7 @@ When talking about async communication the system will still contain the existin
 
 ## Lessons Learned From App #1
   1. The big challenge in microservices is data.
-  2. Different ways to share dtaa between services. We are going to focus on async communication.
+  2. Different ways to share data between services. We are going to focus on async communication.
   3. Async communication focuses on communicating changes using events sent to an event bus.
   4. Async communication encourages each service to strive to be 100% self-sufficient so it relatively easy to handle temporary downtime or new service creation.
   5. Docker makes it easier to package up services.
